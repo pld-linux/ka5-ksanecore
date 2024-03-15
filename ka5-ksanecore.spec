@@ -1,31 +1,31 @@
 #
 # Conditional build:
 %bcond_with	tests		# build with tests
-%define		kdeappsver	24.01.95
+%define		kdeappsver	23.08.4
 %define		kframever	5.94.0
 %define		qtver		5.15.2
 %define		kaname		ksanecore
 Summary:	ksanecore
 Name:		ka5-%{kaname}
-Version:	24.01.95
-Release:	0.1
+Version:	23.08.4
+Release:	1
 License:	GPL v2+/LGPL v2.1+
 Group:		X11/Libraries
-Source0:	https://download.kde.org/unstable/release-service/%{kdeappsver}/src/%{kaname}-%{version}.tar.xz
-# Source0-md5:	64a5d61c6c34aa0644d596199d8fbf82
+Source0:	https://download.kde.org/stable/release-service/%{kdeappsver}/src/%{kaname}-%{version}.tar.xz
+# Source0-md5:	97979e83c3a64d02f3202f7818b7872e
 URL:		http://www.kde.org/
-BuildRequires:	Qt6Core-devel
-BuildRequires:	Qt6Gui-devel >= 5.12.3
-BuildRequires:	Qt6Test-devel
-BuildRequires:	Qt6Widgets-devel
+BuildRequires:	Qt5Core-devel
+BuildRequires:	Qt5Gui-devel >= 5.12.3
+BuildRequires:	Qt5Test-devel
+BuildRequires:	Qt5Widgets-devel
 BuildRequires:	gettext-devel
-BuildRequires:	kf6-extra-cmake-modules >= %{kframever}
-BuildRequires:	kf6-ki18n-devel >= %{kframever}
-BuildRequires:	kf6-ktextwidgets-devel >= %{kframever}
-BuildRequires:	kf6-kwallet-devel >= %{kframever}
-BuildRequires:	kf6-kwidgetsaddons-devel >= %{kframever}
+BuildRequires:	kf5-extra-cmake-modules >= %{kframever}
+BuildRequires:	kf5-ki18n-devel >= %{kframever}
+BuildRequires:	kf5-ktextwidgets-devel >= %{kframever}
+BuildRequires:	kf5-kwallet-devel >= %{kframever}
+BuildRequires:	kf5-kwidgetsaddons-devel >= %{kframever}
 BuildRequires:	ninja
-BuildRequires:	qt6-build >= %{qtver}
+BuildRequires:	qt5-build >= %{qtver}
 BuildRequires:	rpmbuild(macros) >= 1.164
 BuildRequires:	sane-backends-devel
 BuildRequires:	shared-mime-info
@@ -61,8 +61,7 @@ Pliki nagłówkowe dla programistów używających %{kaname}.
 	-G Ninja \
 	%{!?with_tests:-DBUILD_TESTING=OFF} \
 	-DHTML_INSTALL_DIR=%{_kdedocdir} \
-	-DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-	-DQT_MAJOR_VERSION=6
+	-DKDE_INSTALL_USE_QT_SYS_PATHS=ON
 %ninja_build -C build
 
 %if %{with tests}
@@ -85,11 +84,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{kaname}.lang
 %defattr(644,root,root,755)
-%ghost %{_libdir}/libKSaneCore6.so.1
-%attr(755,root,root) %{_libdir}/libKSaneCore6.so.*.*
+%ghost %{_libdir}/libKSaneCore.so.1
+%{_libdir}/libKSaneCore.so.*.*.*
 
 %files devel
 %defattr(644,root,root,755)
-%{_includedir}/KSaneCore6
-%{_libdir}/cmake/KSaneCore6
-%{_libdir}/libKSaneCore6.so
+%{_includedir}/KSaneCore
+%{_libdir}/cmake/KSaneCore
+%{_libdir}/libKSaneCore.so
